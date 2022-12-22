@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-import { searchForContacts } from '../../app/phonebookSlice';
+import { getFilter } from '../../app/phonebookSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();
 
   const formSubmit = e => {
-    const form = e.currentTarget;
-    dispatch(searchForContacts(form.value));
+    const filter = e.currentTarget.value;
+    dispatch(getFilter(filter));
   };
 
   return (

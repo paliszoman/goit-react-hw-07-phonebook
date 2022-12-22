@@ -2,41 +2,23 @@ import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilter, getPhonebook } from '../../app/selectors';
-import { deleteContacts } from '../../app/phonebookSlice';
-
-const searchForContacts = (filter, contacts) => {
-  if (filter === '') return contacts;
-  const lowercaseFilteredText = filter.toLowerCase();
-  let filterArray = []; //filter store
-  contacts.map(contact => {
-    const nameMatch = contact.name
-      .toLowerCase()
-      .includes(lowercaseFilteredText); // return true if name include filtered text
-    if (nameMatch) {
-      filterArray.push(contact); // if true push correct obj to filterArrat
-    }
-    return filterArray;
-  });
-  return filterArray;
-};
+import { selectFilteredContacts } from '../../app/selectors';
+import { deleteContact } from '../../app/operations';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getPhonebook);
-  const data = searchForContacts(filter, contacts);
+  const contacts = useSelector(selectFilteredContacts);
 
   return (
     <ul className={css.contactList}>
-      {data.map(({ id, name, number }) => (
+      {contacts.map(({ id, name, phone }) => (
         <li key={id} className={css.contact}>
-          {name}: {number}{' '}
+          <strong>{name}:</strong> {phone}{' '}
           <button
             key={id}
             type="submit"
             onClick={() => {
-              dispatch(deleteContacts(id));
+              return dispatch(deleteContact(id));
             }}
           >
             x

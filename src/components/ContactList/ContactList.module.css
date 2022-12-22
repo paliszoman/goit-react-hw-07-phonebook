@@ -1,13 +1,27 @@
-.contactList{
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    gap: 10px;
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%vw;
+  flex-wrap: wrap;
 }
-li:hover{
-    cursor: pointer;
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: break-word;
+  padding: 20px;
+  width: 300px;
+}
+li:hover {
+  cursor: pointer;
+  background-color: antiquewhite;
+  border-radius: 12px;
 }
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

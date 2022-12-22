@@ -2,25 +2,24 @@ import css from './Form.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../app/phonebookSlice';
-import { getPhonebook } from '../../app/selectors';
+import { selectPhonebook } from '../../app/selectors';
+import { addContact } from '../../app/operations';
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getPhonebook);
+  const contacts = useSelector(selectPhonebook);
+
   const formSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget.elements;
     const name = form.name.value;
-    const number = form.number.value;
-    const id = nanoid(6);
+    const phone = form.number.value;
     const nameArray = contacts.map(item => item.name);
     if (nameArray.includes(name)) {
       return alert(`${name} is already in contacts.`);
     }
-    dispatch(addContact({ id, name, number }));
+    dispatch(addContact({ name, phone }));
     e.currentTarget.reset();
   };
 
